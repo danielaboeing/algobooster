@@ -1,0 +1,77 @@
+<!doctype html>
+{% load static %} 
+
+<html>
+	<head>
+        <!-- meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="{% static 'ab_ui/style.css' %}" />
+        
+        <title>AlgoBooster</title> 
+	</head>
+	<body>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Navigation Bar -->
+                <div class="col" id="topmenu">
+                    <nav class="navbar navbar-expand-md navbar-dark">
+                        <a class="navbar-brand" href="{% url 'ab_ui:index' %}">AlgoBooster</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ab_ui:index' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ab_ui:about' %}">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ab_ui:algobooster' %}">Use AlgoBooster</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ab_ui:training' %}">Train AlgoBooster</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- main content -->
+            <div class="main-content">
+                    
+                    {% block body_block %}{% endblock %}
+                    
+            </div>
+
+            <!-- footer -->
+            <div class="row">
+                <div class="col" id="footer">
+                    <nav class="navbar navbar-expand-md navbar-dark">
+                        <div class="link-group ml-auto mr-auto">
+                            <a href="{% url 'ab_ui:imprint' %}">Imprint</a> &nbsp; &nbsp;
+                            <a href="{% url 'ab_ui:disclaimer' %}">Disclaimer</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+        <!-- JQuery JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Custom JS -->
+        <script src="{% static 'ab_ui/componentInfo.js' %}" ></script>
+        <script src="{% static 'ab_ui/btnFuncs.js' %}" ></script>
+	</body>			
+</html>

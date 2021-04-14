@@ -1,0 +1,72 @@
+{% extends 'ab_ui/base.html' %}
+{% block body_block %}
+{% load static %} 
+
+<div class="row">
+	<div class="col">
+		<br />
+		<h3>Train AlgoBooster</h3>
+		<br />
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+		<div class="algorithm box">
+			<b>Algorithm</b>
+			<!-- Train Algo Input -->
+			<form action="{% url 'ab_ui:train' %}" method="post">
+				{% csrf_token %} <!-- used against Cross Site Request Forgeries -->
+	
+				<textarea id="train-frame" name="code">{% if input %}{{input}}{% endif %}</textarea>
+				                
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label" id="label-class">Classification: </label>
+				</div>
+
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="classification" id="none" value="0" {% if classification == '0' %} checked {% endif %}>
+					<label class="form-check-label" for="none">None</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="classification" id="divAndConq" value="1" {% if classification == '1' %} checked {% endif %}>
+					<label class="form-check-label" for="divAndConq">Divide And Conquer</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="classification" id="dynProg" value="2" {% if classification == '2' %} checked {% endif %}>
+					<label class="form-check-label" for="dynProg">Dynamic Programming</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="classification" id="bnb" value="3" {% if classification == '3' %} checked {% endif %}>
+					<label class="form-check-label" for="bnb">Branch and Bound</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="classification" id="greedy" value="4" {% if classification == '4' %} checked {% endif %}>
+					<label class="form-check-label" for="greedy">Greedy Algorithm</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="classification" id="randalg" value="5" {% if classification == '5' %} checked {% endif %}>
+					<label class="form-check-label" for="randalg">Randomized Algorithm</label>
+				</div>
+				
+				<div class="btn-group alg-btns" role="group">
+					<button type="button" class="btn" id="resetBtn">Reset</button>
+					<button type="submit" class="btn">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+		<!-- Training output -->
+		<div class="algorithm-out box">
+			<b>Result</b>
+			<div class="result">
+				{% if result %}{{ result }}{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

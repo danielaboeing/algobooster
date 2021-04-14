@@ -1,0 +1,108 @@
+/*
+    Base and General
+*/
+body{
+    background-color: #0A0A0A;
+    color: #FFFFFF;
+}
+h1, h2, h5{
+    text-align: center;
+}
+#topmenu, #footer {
+    padding: 0;
+    position: fixed;
+    z-index: 1;
+    background-color: #1A1A1A;
+}
+#topmenu {
+    top: 0;
+}
+#footer{
+    bottom: 0;
+}
+.main-content{
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+a {
+    color: rgba(255,255,255,.5)
+}
+a:hover{
+    text-decoration: none;
+    color: lightgray;
+}
+/*
+    Index
+*/
+
+#teaser-img{
+    width: 90%;
+}
+@media screen and (min-width: 1140px){ /* Bootstrap's lg */
+    #teaser-img{
+        width: 60%;
+    }
+}
+
+/*
+    AlgoBooster Interface
+*/
+.box{
+    border: 1px solid white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.components, .algorithm{
+    height: 600px;
+}
+.complexity, .alg-btns{
+    position: absolute;
+    bottom: 25px;
+}
+.alg-btns{
+    right: 25px;
+}
+#build-frame, #train-frame{
+    width: 100%;
+    overflow: scroll;
+    background-color: #0A0A0A;
+    color: white;
+}
+#build-frame{
+    height: 500px;
+}
+#train-frame{
+    height: 350px;
+}
+#classification{
+    width: 300px;
+}
+#label-class{
+    padding: 10px;
+}
+.algorithm-out, .classific{
+    height: 350px;
+    padding-bottom: 30px;
+  
+}
+.result{
+    height: 88%;
+    overflow: scroll;
+}
+.draggable{
+    z-index: 1;
+    width: 100px;
+}
+code{
+    color: lightgray;
+}
+.btn{
+    background-color: white;
+    color: #0A0A0A;
+    border: 1px solid #0A0A0A;
+}
+.btn:hover{
+    background-color: #0A0A0A;
+    color: white;
+}

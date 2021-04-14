@@ -1,0 +1,2510 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> code
+Rule 1     code -> expr
+Rule 2     code -> expr code
+Rule 3     expr -> calcexpr
+Rule 4     expr -> condexpr
+Rule 5     expr -> loopexpr
+Rule 6     expr -> funcexpr
+Rule 7     expr -> returnexpr
+Rule 8     calcexpr -> var ASSIGN calc
+Rule 9     calc -> LPARENROUND calc RPARENROUND
+Rule 10    calc -> calc op calc
+Rule 11    calc -> term
+Rule 12    op -> PLUS
+Rule 13    op -> MINUS
+Rule 14    op -> TIMES
+Rule 15    op -> DIVIDE
+Rule 16    op -> INTDIVIDE
+Rule 17    op -> MOD
+Rule 18    op -> POWER
+Rule 19    var -> NAME
+Rule 20    var -> NAME LPARENANG NUMBER RPARENANG
+Rule 21    var -> NAME LPARENANG NAME RPARENANG
+Rule 22    term -> scalar
+Rule 23    term -> set
+Rule 24    term -> seq
+Rule 25    scalar -> NUMBER
+Rule 26    scalar -> funccall
+Rule 27    scalar -> var
+Rule 28    funccall -> NAME LPARENROUND callparams RPARENROUND
+Rule 29    callparams -> calc
+Rule 30    callparams -> calc COMMA callparams
+Rule 31    set -> LBRACE value RBRACE
+Rule 32    seq -> LPARENANG value RPARENANG
+Rule 33    value -> scalar COMMA value
+Rule 34    value -> scalar
+Rule 35    condexpr -> IF cond THEN code ENDIF
+Rule 36    condexpr -> IF cond THEN code ELSE code ENDIF
+Rule 37    cond -> LPARENROUND cond RPARENROUND
+Rule 38    cond -> NOT cond
+Rule 39    cond -> term
+Rule 40    cond -> cond log cond
+Rule 41    cond -> term comp term
+Rule 42    log -> AND
+Rule 43    log -> OR
+Rule 44    comp -> EQ
+Rule 45    comp -> NOTEQ
+Rule 46    comp -> GT
+Rule 47    comp -> GE
+Rule 48    comp -> LT
+Rule 49    comp -> LE
+Rule 50    comp -> IN
+Rule 51    comp -> NOT IN
+Rule 52    loopexpr -> REPEAT code UNTIL cond
+Rule 53    loopexpr -> FOR condfor DO code ENDFOR
+Rule 54    condfor -> NAME IN set
+Rule 55    condfor -> NAME IN NAME
+Rule 56    condfor -> NAME IN scalar TO scalar BY scalar
+Rule 57    funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC
+Rule 58    returnexpr -> RETURN
+Rule 59    returnexpr -> RETURN calc
+Rule 60    params -> NAME COMMA params
+Rule 61    params -> NAME
+
+Terminals, with rules where they appear
+
+AND                  : 42
+ASSIGN               : 8
+BY                   : 56
+COMMA                : 30 33 60
+DIVIDE               : 15
+DO                   : 53
+ELSE                 : 36
+ENDFOR               : 53
+ENDIF                : 35 36
+ENDPROC              : 57
+EQ                   : 44
+FOR                  : 53
+GE                   : 47
+GT                   : 46
+IF                   : 35 36
+IN                   : 50 51 54 55 56
+INTDIVIDE            : 16
+LBRACE               : 31
+LE                   : 49
+LPARENANG            : 20 21 32
+LPARENROUND          : 9 28 37 57
+LT                   : 48
+MINUS                : 13
+MOD                  : 17
+NAME                 : 19 20 21 21 28 54 55 55 56 57 60 61
+NOT                  : 38 51
+NOTEQ                : 45
+NUMBER               : 20 25
+OR                   : 43
+PLUS                 : 12
+POWER                : 18
+PROCEDURE            : 57
+RBRACE               : 31
+REPEAT               : 52
+RETURN               : 58 59
+RPARENANG            : 20 21 32
+RPARENROUND          : 9 28 37 57
+THEN                 : 35 36
+TIMES                : 14
+TO                   : 56
+UNTIL                : 52
+error                : 
+
+Nonterminals, with rules where they appear
+
+calc                 : 8 9 10 10 29 30 59
+calcexpr             : 3
+callparams           : 28 30
+code                 : 2 35 36 36 52 53 57 0
+comp                 : 41
+cond                 : 35 36 37 38 40 40 52
+condexpr             : 4
+condfor              : 53
+expr                 : 1 2
+funccall             : 26
+funcexpr             : 6
+log                  : 40
+loopexpr             : 5
+op                   : 10
+params               : 57 60
+returnexpr           : 7
+scalar               : 22 33 34 56 56 56
+seq                  : 24
+set                  : 23 54
+term                 : 11 39 41 41
+value                : 31 32 33
+var                  : 8 27
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . code
+    (1) code -> . expr
+    (2) code -> . expr code
+    (3) expr -> . calcexpr
+    (4) expr -> . condexpr
+    (5) expr -> . loopexpr
+    (6) expr -> . funcexpr
+    (7) expr -> . returnexpr
+    (8) calcexpr -> . var ASSIGN calc
+    (35) condexpr -> . IF cond THEN code ENDIF
+    (36) condexpr -> . IF cond THEN code ELSE code ENDIF
+    (52) loopexpr -> . REPEAT code UNTIL cond
+    (53) loopexpr -> . FOR condfor DO code ENDFOR
+    (57) funcexpr -> . PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC
+    (58) returnexpr -> . RETURN
+    (59) returnexpr -> . RETURN calc
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    IF              shift and go to state 9
+    REPEAT          shift and go to state 10
+    FOR             shift and go to state 11
+    PROCEDURE       shift and go to state 12
+    RETURN          shift and go to state 14
+    NAME            shift and go to state 13
+
+    code                           shift and go to state 1
+    expr                           shift and go to state 2
+    calcexpr                       shift and go to state 3
+    condexpr                       shift and go to state 4
+    loopexpr                       shift and go to state 5
+    funcexpr                       shift and go to state 6
+    returnexpr                     shift and go to state 7
+    var                            shift and go to state 8
+
+state 1
+
+    (0) S' -> code .
+
+
+
+state 2
+
+    (1) code -> expr .
+    (2) code -> expr . code
+    (1) code -> . expr
+    (2) code -> . expr code
+    (3) expr -> . calcexpr
+    (4) expr -> . condexpr
+    (5) expr -> . loopexpr
+    (6) expr -> . funcexpr
+    (7) expr -> . returnexpr
+    (8) calcexpr -> . var ASSIGN calc
+    (35) condexpr -> . IF cond THEN code ENDIF
+    (36) condexpr -> . IF cond THEN code ELSE code ENDIF
+    (52) loopexpr -> . REPEAT code UNTIL cond
+    (53) loopexpr -> . FOR condfor DO code ENDFOR
+    (57) funcexpr -> . PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC
+    (58) returnexpr -> . RETURN
+    (59) returnexpr -> . RETURN calc
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    $end            reduce using rule 1 (code -> expr .)
+    UNTIL           reduce using rule 1 (code -> expr .)
+    ENDIF           reduce using rule 1 (code -> expr .)
+    ELSE            reduce using rule 1 (code -> expr .)
+    ENDFOR          reduce using rule 1 (code -> expr .)
+    ENDPROC         reduce using rule 1 (code -> expr .)
+    IF              shift and go to state 9
+    REPEAT          shift and go to state 10
+    FOR             shift and go to state 11
+    PROCEDURE       shift and go to state 12
+    RETURN          shift and go to state 14
+    NAME            shift and go to state 13
+
+    expr                           shift and go to state 2
+    code                           shift and go to state 15
+    calcexpr                       shift and go to state 3
+    condexpr                       shift and go to state 4
+    loopexpr                       shift and go to state 5
+    funcexpr                       shift and go to state 6
+    returnexpr                     shift and go to state 7
+    var                            shift and go to state 8
+
+state 3
+
+    (3) expr -> calcexpr .
+
+    IF              reduce using rule 3 (expr -> calcexpr .)
+    REPEAT          reduce using rule 3 (expr -> calcexpr .)
+    FOR             reduce using rule 3 (expr -> calcexpr .)
+    PROCEDURE       reduce using rule 3 (expr -> calcexpr .)
+    RETURN          reduce using rule 3 (expr -> calcexpr .)
+    NAME            reduce using rule 3 (expr -> calcexpr .)
+    $end            reduce using rule 3 (expr -> calcexpr .)
+    UNTIL           reduce using rule 3 (expr -> calcexpr .)
+    ENDIF           reduce using rule 3 (expr -> calcexpr .)
+    ELSE            reduce using rule 3 (expr -> calcexpr .)
+    ENDFOR          reduce using rule 3 (expr -> calcexpr .)
+    ENDPROC         reduce using rule 3 (expr -> calcexpr .)
+
+
+state 4
+
+    (4) expr -> condexpr .
+
+    IF              reduce using rule 4 (expr -> condexpr .)
+    REPEAT          reduce using rule 4 (expr -> condexpr .)
+    FOR             reduce using rule 4 (expr -> condexpr .)
+    PROCEDURE       reduce using rule 4 (expr -> condexpr .)
+    RETURN          reduce using rule 4 (expr -> condexpr .)
+    NAME            reduce using rule 4 (expr -> condexpr .)
+    $end            reduce using rule 4 (expr -> condexpr .)
+    UNTIL           reduce using rule 4 (expr -> condexpr .)
+    ENDIF           reduce using rule 4 (expr -> condexpr .)
+    ELSE            reduce using rule 4 (expr -> condexpr .)
+    ENDFOR          reduce using rule 4 (expr -> condexpr .)
+    ENDPROC         reduce using rule 4 (expr -> condexpr .)
+
+
+state 5
+
+    (5) expr -> loopexpr .
+
+    IF              reduce using rule 5 (expr -> loopexpr .)
+    REPEAT          reduce using rule 5 (expr -> loopexpr .)
+    FOR             reduce using rule 5 (expr -> loopexpr .)
+    PROCEDURE       reduce using rule 5 (expr -> loopexpr .)
+    RETURN          reduce using rule 5 (expr -> loopexpr .)
+    NAME            reduce using rule 5 (expr -> loopexpr .)
+    $end            reduce using rule 5 (expr -> loopexpr .)
+    UNTIL           reduce using rule 5 (expr -> loopexpr .)
+    ENDIF           reduce using rule 5 (expr -> loopexpr .)
+    ELSE            reduce using rule 5 (expr -> loopexpr .)
+    ENDFOR          reduce using rule 5 (expr -> loopexpr .)
+    ENDPROC         reduce using rule 5 (expr -> loopexpr .)
+
+
+state 6
+
+    (6) expr -> funcexpr .
+
+    IF              reduce using rule 6 (expr -> funcexpr .)
+    REPEAT          reduce using rule 6 (expr -> funcexpr .)
+    FOR             reduce using rule 6 (expr -> funcexpr .)
+    PROCEDURE       reduce using rule 6 (expr -> funcexpr .)
+    RETURN          reduce using rule 6 (expr -> funcexpr .)
+    NAME            reduce using rule 6 (expr -> funcexpr .)
+    $end            reduce using rule 6 (expr -> funcexpr .)
+    UNTIL           reduce using rule 6 (expr -> funcexpr .)
+    ENDIF           reduce using rule 6 (expr -> funcexpr .)
+    ELSE            reduce using rule 6 (expr -> funcexpr .)
+    ENDFOR          reduce using rule 6 (expr -> funcexpr .)
+    ENDPROC         reduce using rule 6 (expr -> funcexpr .)
+
+
+state 7
+
+    (7) expr -> returnexpr .
+
+    IF              reduce using rule 7 (expr -> returnexpr .)
+    REPEAT          reduce using rule 7 (expr -> returnexpr .)
+    FOR             reduce using rule 7 (expr -> returnexpr .)
+    PROCEDURE       reduce using rule 7 (expr -> returnexpr .)
+    RETURN          reduce using rule 7 (expr -> returnexpr .)
+    NAME            reduce using rule 7 (expr -> returnexpr .)
+    $end            reduce using rule 7 (expr -> returnexpr .)
+    UNTIL           reduce using rule 7 (expr -> returnexpr .)
+    ENDIF           reduce using rule 7 (expr -> returnexpr .)
+    ELSE            reduce using rule 7 (expr -> returnexpr .)
+    ENDFOR          reduce using rule 7 (expr -> returnexpr .)
+    ENDPROC         reduce using rule 7 (expr -> returnexpr .)
+
+
+state 8
+
+    (8) calcexpr -> var . ASSIGN calc
+
+    ASSIGN          shift and go to state 16
+
+
+state 9
+
+    (35) condexpr -> IF . cond THEN code ENDIF
+    (36) condexpr -> IF . cond THEN code ELSE code ENDIF
+    (37) cond -> . LPARENROUND cond RPARENROUND
+    (38) cond -> . NOT cond
+    (39) cond -> . term
+    (40) cond -> . cond log cond
+    (41) cond -> . term comp term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    LPARENROUND     shift and go to state 18
+    NOT             shift and go to state 19
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+    cond                           shift and go to state 17
+    term                           shift and go to state 20
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 10
+
+    (52) loopexpr -> REPEAT . code UNTIL cond
+    (1) code -> . expr
+    (2) code -> . expr code
+    (3) expr -> . calcexpr
+    (4) expr -> . condexpr
+    (5) expr -> . loopexpr
+    (6) expr -> . funcexpr
+    (7) expr -> . returnexpr
+    (8) calcexpr -> . var ASSIGN calc
+    (35) condexpr -> . IF cond THEN code ENDIF
+    (36) condexpr -> . IF cond THEN code ELSE code ENDIF
+    (52) loopexpr -> . REPEAT code UNTIL cond
+    (53) loopexpr -> . FOR condfor DO code ENDFOR
+    (57) funcexpr -> . PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC
+    (58) returnexpr -> . RETURN
+    (59) returnexpr -> . RETURN calc
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    IF              shift and go to state 9
+    REPEAT          shift and go to state 10
+    FOR             shift and go to state 11
+    PROCEDURE       shift and go to state 12
+    RETURN          shift and go to state 14
+    NAME            shift and go to state 13
+
+    code                           shift and go to state 30
+    expr                           shift and go to state 2
+    calcexpr                       shift and go to state 3
+    condexpr                       shift and go to state 4
+    loopexpr                       shift and go to state 5
+    funcexpr                       shift and go to state 6
+    returnexpr                     shift and go to state 7
+    var                            shift and go to state 8
+
+state 11
+
+    (53) loopexpr -> FOR . condfor DO code ENDFOR
+    (54) condfor -> . NAME IN set
+    (55) condfor -> . NAME IN NAME
+    (56) condfor -> . NAME IN scalar TO scalar BY scalar
+
+    NAME            shift and go to state 32
+
+    condfor                        shift and go to state 31
+
+state 12
+
+    (57) funcexpr -> PROCEDURE . NAME LPARENROUND params RPARENROUND code ENDPROC
+
+    NAME            shift and go to state 33
+
+
+state 13
+
+    (19) var -> NAME .
+    (20) var -> NAME . LPARENANG NUMBER RPARENANG
+    (21) var -> NAME . LPARENANG NAME RPARENANG
+
+    ASSIGN          reduce using rule 19 (var -> NAME .)
+    LPARENANG       shift and go to state 34
+
+
+state 14
+
+    (58) returnexpr -> RETURN .
+    (59) returnexpr -> RETURN . calc
+    (9) calc -> . LPARENROUND calc RPARENROUND
+    (10) calc -> . calc op calc
+    (11) calc -> . term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+  ! shift/reduce conflict for NAME resolved as shift
+    IF              reduce using rule 58 (returnexpr -> RETURN .)
+    REPEAT          reduce using rule 58 (returnexpr -> RETURN .)
+    FOR             reduce using rule 58 (returnexpr -> RETURN .)
+    PROCEDURE       reduce using rule 58 (returnexpr -> RETURN .)
+    RETURN          reduce using rule 58 (returnexpr -> RETURN .)
+    $end            reduce using rule 58 (returnexpr -> RETURN .)
+    UNTIL           reduce using rule 58 (returnexpr -> RETURN .)
+    ENDIF           reduce using rule 58 (returnexpr -> RETURN .)
+    ELSE            reduce using rule 58 (returnexpr -> RETURN .)
+    ENDFOR          reduce using rule 58 (returnexpr -> RETURN .)
+    ENDPROC         reduce using rule 58 (returnexpr -> RETURN .)
+    LPARENROUND     shift and go to state 36
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+  ! NAME            [ reduce using rule 58 (returnexpr -> RETURN .) ]
+
+    calc                           shift and go to state 35
+    term                           shift and go to state 37
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 15
+
+    (2) code -> expr code .
+
+    $end            reduce using rule 2 (code -> expr code .)
+    UNTIL           reduce using rule 2 (code -> expr code .)
+    ENDIF           reduce using rule 2 (code -> expr code .)
+    ELSE            reduce using rule 2 (code -> expr code .)
+    ENDFOR          reduce using rule 2 (code -> expr code .)
+    ENDPROC         reduce using rule 2 (code -> expr code .)
+
+
+state 16
+
+    (8) calcexpr -> var ASSIGN . calc
+    (9) calc -> . LPARENROUND calc RPARENROUND
+    (10) calc -> . calc op calc
+    (11) calc -> . term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    LPARENROUND     shift and go to state 36
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+    var                            shift and go to state 26
+    calc                           shift and go to state 38
+    term                           shift and go to state 37
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+
+state 17
+
+    (35) condexpr -> IF cond . THEN code ENDIF
+    (36) condexpr -> IF cond . THEN code ELSE code ENDIF
+    (40) cond -> cond . log cond
+    (42) log -> . AND
+    (43) log -> . OR
+
+    THEN            shift and go to state 39
+    AND             shift and go to state 41
+    OR              shift and go to state 42
+
+    log                            shift and go to state 40
+
+state 18
+
+    (37) cond -> LPARENROUND . cond RPARENROUND
+    (37) cond -> . LPARENROUND cond RPARENROUND
+    (38) cond -> . NOT cond
+    (39) cond -> . term
+    (40) cond -> . cond log cond
+    (41) cond -> . term comp term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    LPARENROUND     shift and go to state 18
+    NOT             shift and go to state 19
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+    cond                           shift and go to state 43
+    term                           shift and go to state 20
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 19
+
+    (38) cond -> NOT . cond
+    (37) cond -> . LPARENROUND cond RPARENROUND
+    (38) cond -> . NOT cond
+    (39) cond -> . term
+    (40) cond -> . cond log cond
+    (41) cond -> . term comp term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    LPARENROUND     shift and go to state 18
+    NOT             shift and go to state 19
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+    cond                           shift and go to state 44
+    term                           shift and go to state 20
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 20
+
+    (39) cond -> term .
+    (41) cond -> term . comp term
+    (44) comp -> . EQ
+    (45) comp -> . NOTEQ
+    (46) comp -> . GT
+    (47) comp -> . GE
+    (48) comp -> . LT
+    (49) comp -> . LE
+    (50) comp -> . IN
+    (51) comp -> . NOT IN
+
+    THEN            reduce using rule 39 (cond -> term .)
+    AND             reduce using rule 39 (cond -> term .)
+    OR              reduce using rule 39 (cond -> term .)
+    RPARENROUND     reduce using rule 39 (cond -> term .)
+    IF              reduce using rule 39 (cond -> term .)
+    REPEAT          reduce using rule 39 (cond -> term .)
+    FOR             reduce using rule 39 (cond -> term .)
+    PROCEDURE       reduce using rule 39 (cond -> term .)
+    RETURN          reduce using rule 39 (cond -> term .)
+    NAME            reduce using rule 39 (cond -> term .)
+    $end            reduce using rule 39 (cond -> term .)
+    UNTIL           reduce using rule 39 (cond -> term .)
+    ENDIF           reduce using rule 39 (cond -> term .)
+    ELSE            reduce using rule 39 (cond -> term .)
+    ENDFOR          reduce using rule 39 (cond -> term .)
+    ENDPROC         reduce using rule 39 (cond -> term .)
+    EQ              shift and go to state 46
+    NOTEQ           shift and go to state 47
+    GT              shift and go to state 48
+    GE              shift and go to state 49
+    LT              shift and go to state 50
+    LE              shift and go to state 51
+    IN              shift and go to state 52
+    NOT             shift and go to state 53
+
+    comp                           shift and go to state 45
+
+state 21
+
+    (22) term -> scalar .
+
+    EQ              reduce using rule 22 (term -> scalar .)
+    NOTEQ           reduce using rule 22 (term -> scalar .)
+    GT              reduce using rule 22 (term -> scalar .)
+    GE              reduce using rule 22 (term -> scalar .)
+    LT              reduce using rule 22 (term -> scalar .)
+    LE              reduce using rule 22 (term -> scalar .)
+    IN              reduce using rule 22 (term -> scalar .)
+    NOT             reduce using rule 22 (term -> scalar .)
+    THEN            reduce using rule 22 (term -> scalar .)
+    AND             reduce using rule 22 (term -> scalar .)
+    OR              reduce using rule 22 (term -> scalar .)
+    PLUS            reduce using rule 22 (term -> scalar .)
+    MINUS           reduce using rule 22 (term -> scalar .)
+    TIMES           reduce using rule 22 (term -> scalar .)
+    DIVIDE          reduce using rule 22 (term -> scalar .)
+    INTDIVIDE       reduce using rule 22 (term -> scalar .)
+    MOD             reduce using rule 22 (term -> scalar .)
+    POWER           reduce using rule 22 (term -> scalar .)
+    IF              reduce using rule 22 (term -> scalar .)
+    REPEAT          reduce using rule 22 (term -> scalar .)
+    FOR             reduce using rule 22 (term -> scalar .)
+    PROCEDURE       reduce using rule 22 (term -> scalar .)
+    RETURN          reduce using rule 22 (term -> scalar .)
+    NAME            reduce using rule 22 (term -> scalar .)
+    $end            reduce using rule 22 (term -> scalar .)
+    UNTIL           reduce using rule 22 (term -> scalar .)
+    ENDIF           reduce using rule 22 (term -> scalar .)
+    ELSE            reduce using rule 22 (term -> scalar .)
+    ENDFOR          reduce using rule 22 (term -> scalar .)
+    ENDPROC         reduce using rule 22 (term -> scalar .)
+    RPARENROUND     reduce using rule 22 (term -> scalar .)
+    COMMA           reduce using rule 22 (term -> scalar .)
+
+
+state 22
+
+    (23) term -> set .
+
+    EQ              reduce using rule 23 (term -> set .)
+    NOTEQ           reduce using rule 23 (term -> set .)
+    GT              reduce using rule 23 (term -> set .)
+    GE              reduce using rule 23 (term -> set .)
+    LT              reduce using rule 23 (term -> set .)
+    LE              reduce using rule 23 (term -> set .)
+    IN              reduce using rule 23 (term -> set .)
+    NOT             reduce using rule 23 (term -> set .)
+    THEN            reduce using rule 23 (term -> set .)
+    AND             reduce using rule 23 (term -> set .)
+    OR              reduce using rule 23 (term -> set .)
+    PLUS            reduce using rule 23 (term -> set .)
+    MINUS           reduce using rule 23 (term -> set .)
+    TIMES           reduce using rule 23 (term -> set .)
+    DIVIDE          reduce using rule 23 (term -> set .)
+    INTDIVIDE       reduce using rule 23 (term -> set .)
+    MOD             reduce using rule 23 (term -> set .)
+    POWER           reduce using rule 23 (term -> set .)
+    IF              reduce using rule 23 (term -> set .)
+    REPEAT          reduce using rule 23 (term -> set .)
+    FOR             reduce using rule 23 (term -> set .)
+    PROCEDURE       reduce using rule 23 (term -> set .)
+    RETURN          reduce using rule 23 (term -> set .)
+    NAME            reduce using rule 23 (term -> set .)
+    $end            reduce using rule 23 (term -> set .)
+    UNTIL           reduce using rule 23 (term -> set .)
+    ENDIF           reduce using rule 23 (term -> set .)
+    ELSE            reduce using rule 23 (term -> set .)
+    ENDFOR          reduce using rule 23 (term -> set .)
+    ENDPROC         reduce using rule 23 (term -> set .)
+    RPARENROUND     reduce using rule 23 (term -> set .)
+    COMMA           reduce using rule 23 (term -> set .)
+
+
+state 23
+
+    (24) term -> seq .
+
+    EQ              reduce using rule 24 (term -> seq .)
+    NOTEQ           reduce using rule 24 (term -> seq .)
+    GT              reduce using rule 24 (term -> seq .)
+    GE              reduce using rule 24 (term -> seq .)
+    LT              reduce using rule 24 (term -> seq .)
+    LE              reduce using rule 24 (term -> seq .)
+    IN              reduce using rule 24 (term -> seq .)
+    NOT             reduce using rule 24 (term -> seq .)
+    THEN            reduce using rule 24 (term -> seq .)
+    AND             reduce using rule 24 (term -> seq .)
+    OR              reduce using rule 24 (term -> seq .)
+    PLUS            reduce using rule 24 (term -> seq .)
+    MINUS           reduce using rule 24 (term -> seq .)
+    TIMES           reduce using rule 24 (term -> seq .)
+    DIVIDE          reduce using rule 24 (term -> seq .)
+    INTDIVIDE       reduce using rule 24 (term -> seq .)
+    MOD             reduce using rule 24 (term -> seq .)
+    POWER           reduce using rule 24 (term -> seq .)
+    IF              reduce using rule 24 (term -> seq .)
+    REPEAT          reduce using rule 24 (term -> seq .)
+    FOR             reduce using rule 24 (term -> seq .)
+    PROCEDURE       reduce using rule 24 (term -> seq .)
+    RETURN          reduce using rule 24 (term -> seq .)
+    NAME            reduce using rule 24 (term -> seq .)
+    $end            reduce using rule 24 (term -> seq .)
+    UNTIL           reduce using rule 24 (term -> seq .)
+    ENDIF           reduce using rule 24 (term -> seq .)
+    ELSE            reduce using rule 24 (term -> seq .)
+    ENDFOR          reduce using rule 24 (term -> seq .)
+    ENDPROC         reduce using rule 24 (term -> seq .)
+    RPARENROUND     reduce using rule 24 (term -> seq .)
+    COMMA           reduce using rule 24 (term -> seq .)
+
+
+state 24
+
+    (25) scalar -> NUMBER .
+
+    EQ              reduce using rule 25 (scalar -> NUMBER .)
+    NOTEQ           reduce using rule 25 (scalar -> NUMBER .)
+    GT              reduce using rule 25 (scalar -> NUMBER .)
+    GE              reduce using rule 25 (scalar -> NUMBER .)
+    LT              reduce using rule 25 (scalar -> NUMBER .)
+    LE              reduce using rule 25 (scalar -> NUMBER .)
+    IN              reduce using rule 25 (scalar -> NUMBER .)
+    NOT             reduce using rule 25 (scalar -> NUMBER .)
+    THEN            reduce using rule 25 (scalar -> NUMBER .)
+    AND             reduce using rule 25 (scalar -> NUMBER .)
+    OR              reduce using rule 25 (scalar -> NUMBER .)
+    PLUS            reduce using rule 25 (scalar -> NUMBER .)
+    MINUS           reduce using rule 25 (scalar -> NUMBER .)
+    TIMES           reduce using rule 25 (scalar -> NUMBER .)
+    DIVIDE          reduce using rule 25 (scalar -> NUMBER .)
+    INTDIVIDE       reduce using rule 25 (scalar -> NUMBER .)
+    MOD             reduce using rule 25 (scalar -> NUMBER .)
+    POWER           reduce using rule 25 (scalar -> NUMBER .)
+    IF              reduce using rule 25 (scalar -> NUMBER .)
+    REPEAT          reduce using rule 25 (scalar -> NUMBER .)
+    FOR             reduce using rule 25 (scalar -> NUMBER .)
+    PROCEDURE       reduce using rule 25 (scalar -> NUMBER .)
+    RETURN          reduce using rule 25 (scalar -> NUMBER .)
+    NAME            reduce using rule 25 (scalar -> NUMBER .)
+    $end            reduce using rule 25 (scalar -> NUMBER .)
+    UNTIL           reduce using rule 25 (scalar -> NUMBER .)
+    ENDIF           reduce using rule 25 (scalar -> NUMBER .)
+    ELSE            reduce using rule 25 (scalar -> NUMBER .)
+    ENDFOR          reduce using rule 25 (scalar -> NUMBER .)
+    ENDPROC         reduce using rule 25 (scalar -> NUMBER .)
+    RPARENROUND     reduce using rule 25 (scalar -> NUMBER .)
+    COMMA           reduce using rule 25 (scalar -> NUMBER .)
+    RBRACE          reduce using rule 25 (scalar -> NUMBER .)
+    RPARENANG       reduce using rule 25 (scalar -> NUMBER .)
+    TO              reduce using rule 25 (scalar -> NUMBER .)
+    BY              reduce using rule 25 (scalar -> NUMBER .)
+    DO              reduce using rule 25 (scalar -> NUMBER .)
+
+
+state 25
+
+    (26) scalar -> funccall .
+
+    EQ              reduce using rule 26 (scalar -> funccall .)
+    NOTEQ           reduce using rule 26 (scalar -> funccall .)
+    GT              reduce using rule 26 (scalar -> funccall .)
+    GE              reduce using rule 26 (scalar -> funccall .)
+    LT              reduce using rule 26 (scalar -> funccall .)
+    LE              reduce using rule 26 (scalar -> funccall .)
+    IN              reduce using rule 26 (scalar -> funccall .)
+    NOT             reduce using rule 26 (scalar -> funccall .)
+    THEN            reduce using rule 26 (scalar -> funccall .)
+    AND             reduce using rule 26 (scalar -> funccall .)
+    OR              reduce using rule 26 (scalar -> funccall .)
+    PLUS            reduce using rule 26 (scalar -> funccall .)
+    MINUS           reduce using rule 26 (scalar -> funccall .)
+    TIMES           reduce using rule 26 (scalar -> funccall .)
+    DIVIDE          reduce using rule 26 (scalar -> funccall .)
+    INTDIVIDE       reduce using rule 26 (scalar -> funccall .)
+    MOD             reduce using rule 26 (scalar -> funccall .)
+    POWER           reduce using rule 26 (scalar -> funccall .)
+    IF              reduce using rule 26 (scalar -> funccall .)
+    REPEAT          reduce using rule 26 (scalar -> funccall .)
+    FOR             reduce using rule 26 (scalar -> funccall .)
+    PROCEDURE       reduce using rule 26 (scalar -> funccall .)
+    RETURN          reduce using rule 26 (scalar -> funccall .)
+    NAME            reduce using rule 26 (scalar -> funccall .)
+    $end            reduce using rule 26 (scalar -> funccall .)
+    UNTIL           reduce using rule 26 (scalar -> funccall .)
+    ENDIF           reduce using rule 26 (scalar -> funccall .)
+    ELSE            reduce using rule 26 (scalar -> funccall .)
+    ENDFOR          reduce using rule 26 (scalar -> funccall .)
+    ENDPROC         reduce using rule 26 (scalar -> funccall .)
+    RPARENROUND     reduce using rule 26 (scalar -> funccall .)
+    COMMA           reduce using rule 26 (scalar -> funccall .)
+    RBRACE          reduce using rule 26 (scalar -> funccall .)
+    RPARENANG       reduce using rule 26 (scalar -> funccall .)
+    TO              reduce using rule 26 (scalar -> funccall .)
+    BY              reduce using rule 26 (scalar -> funccall .)
+    DO              reduce using rule 26 (scalar -> funccall .)
+
+
+state 26
+
+    (27) scalar -> var .
+
+    EQ              reduce using rule 27 (scalar -> var .)
+    NOTEQ           reduce using rule 27 (scalar -> var .)
+    GT              reduce using rule 27 (scalar -> var .)
+    GE              reduce using rule 27 (scalar -> var .)
+    LT              reduce using rule 27 (scalar -> var .)
+    LE              reduce using rule 27 (scalar -> var .)
+    IN              reduce using rule 27 (scalar -> var .)
+    NOT             reduce using rule 27 (scalar -> var .)
+    THEN            reduce using rule 27 (scalar -> var .)
+    AND             reduce using rule 27 (scalar -> var .)
+    OR              reduce using rule 27 (scalar -> var .)
+    PLUS            reduce using rule 27 (scalar -> var .)
+    MINUS           reduce using rule 27 (scalar -> var .)
+    TIMES           reduce using rule 27 (scalar -> var .)
+    DIVIDE          reduce using rule 27 (scalar -> var .)
+    INTDIVIDE       reduce using rule 27 (scalar -> var .)
+    MOD             reduce using rule 27 (scalar -> var .)
+    POWER           reduce using rule 27 (scalar -> var .)
+    IF              reduce using rule 27 (scalar -> var .)
+    REPEAT          reduce using rule 27 (scalar -> var .)
+    FOR             reduce using rule 27 (scalar -> var .)
+    PROCEDURE       reduce using rule 27 (scalar -> var .)
+    RETURN          reduce using rule 27 (scalar -> var .)
+    NAME            reduce using rule 27 (scalar -> var .)
+    $end            reduce using rule 27 (scalar -> var .)
+    UNTIL           reduce using rule 27 (scalar -> var .)
+    ENDIF           reduce using rule 27 (scalar -> var .)
+    ELSE            reduce using rule 27 (scalar -> var .)
+    ENDFOR          reduce using rule 27 (scalar -> var .)
+    ENDPROC         reduce using rule 27 (scalar -> var .)
+    RPARENROUND     reduce using rule 27 (scalar -> var .)
+    COMMA           reduce using rule 27 (scalar -> var .)
+    RBRACE          reduce using rule 27 (scalar -> var .)
+    RPARENANG       reduce using rule 27 (scalar -> var .)
+    TO              reduce using rule 27 (scalar -> var .)
+    BY              reduce using rule 27 (scalar -> var .)
+    DO              reduce using rule 27 (scalar -> var .)
+
+
+state 27
+
+    (31) set -> LBRACE . value RBRACE
+    (33) value -> . scalar COMMA value
+    (34) value -> . scalar
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    NUMBER          shift and go to state 24
+    NAME            shift and go to state 29
+
+    value                          shift and go to state 54
+    scalar                         shift and go to state 55
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 28
+
+    (32) seq -> LPARENANG . value RPARENANG
+    (33) value -> . scalar COMMA value
+    (34) value -> . scalar
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    NUMBER          shift and go to state 24
+    NAME            shift and go to state 29
+
+    value                          shift and go to state 56
+    scalar                         shift and go to state 55
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 29
+
+    (28) funccall -> NAME . LPARENROUND callparams RPARENROUND
+    (19) var -> NAME .
+    (20) var -> NAME . LPARENANG NUMBER RPARENANG
+    (21) var -> NAME . LPARENANG NAME RPARENANG
+
+    LPARENROUND     shift and go to state 57
+    EQ              reduce using rule 19 (var -> NAME .)
+    NOTEQ           reduce using rule 19 (var -> NAME .)
+    GT              reduce using rule 19 (var -> NAME .)
+    GE              reduce using rule 19 (var -> NAME .)
+    LT              reduce using rule 19 (var -> NAME .)
+    LE              reduce using rule 19 (var -> NAME .)
+    IN              reduce using rule 19 (var -> NAME .)
+    NOT             reduce using rule 19 (var -> NAME .)
+    THEN            reduce using rule 19 (var -> NAME .)
+    AND             reduce using rule 19 (var -> NAME .)
+    OR              reduce using rule 19 (var -> NAME .)
+    PLUS            reduce using rule 19 (var -> NAME .)
+    MINUS           reduce using rule 19 (var -> NAME .)
+    TIMES           reduce using rule 19 (var -> NAME .)
+    DIVIDE          reduce using rule 19 (var -> NAME .)
+    INTDIVIDE       reduce using rule 19 (var -> NAME .)
+    MOD             reduce using rule 19 (var -> NAME .)
+    POWER           reduce using rule 19 (var -> NAME .)
+    IF              reduce using rule 19 (var -> NAME .)
+    REPEAT          reduce using rule 19 (var -> NAME .)
+    FOR             reduce using rule 19 (var -> NAME .)
+    PROCEDURE       reduce using rule 19 (var -> NAME .)
+    RETURN          reduce using rule 19 (var -> NAME .)
+    NAME            reduce using rule 19 (var -> NAME .)
+    $end            reduce using rule 19 (var -> NAME .)
+    UNTIL           reduce using rule 19 (var -> NAME .)
+    ENDIF           reduce using rule 19 (var -> NAME .)
+    ELSE            reduce using rule 19 (var -> NAME .)
+    ENDFOR          reduce using rule 19 (var -> NAME .)
+    ENDPROC         reduce using rule 19 (var -> NAME .)
+    RPARENROUND     reduce using rule 19 (var -> NAME .)
+    COMMA           reduce using rule 19 (var -> NAME .)
+    RBRACE          reduce using rule 19 (var -> NAME .)
+    RPARENANG       reduce using rule 19 (var -> NAME .)
+    BY              reduce using rule 19 (var -> NAME .)
+    DO              reduce using rule 19 (var -> NAME .)
+    LPARENANG       shift and go to state 34
+
+
+state 30
+
+    (52) loopexpr -> REPEAT code . UNTIL cond
+
+    UNTIL           shift and go to state 58
+
+
+state 31
+
+    (53) loopexpr -> FOR condfor . DO code ENDFOR
+
+    DO              shift and go to state 59
+
+
+state 32
+
+    (54) condfor -> NAME . IN set
+    (55) condfor -> NAME . IN NAME
+    (56) condfor -> NAME . IN scalar TO scalar BY scalar
+
+    IN              shift and go to state 60
+
+
+state 33
+
+    (57) funcexpr -> PROCEDURE NAME . LPARENROUND params RPARENROUND code ENDPROC
+
+    LPARENROUND     shift and go to state 61
+
+
+state 34
+
+    (20) var -> NAME LPARENANG . NUMBER RPARENANG
+    (21) var -> NAME LPARENANG . NAME RPARENANG
+
+    NUMBER          shift and go to state 63
+    NAME            shift and go to state 62
+
+
+state 35
+
+    (59) returnexpr -> RETURN calc .
+    (10) calc -> calc . op calc
+    (12) op -> . PLUS
+    (13) op -> . MINUS
+    (14) op -> . TIMES
+    (15) op -> . DIVIDE
+    (16) op -> . INTDIVIDE
+    (17) op -> . MOD
+    (18) op -> . POWER
+
+    IF              reduce using rule 59 (returnexpr -> RETURN calc .)
+    REPEAT          reduce using rule 59 (returnexpr -> RETURN calc .)
+    FOR             reduce using rule 59 (returnexpr -> RETURN calc .)
+    PROCEDURE       reduce using rule 59 (returnexpr -> RETURN calc .)
+    RETURN          reduce using rule 59 (returnexpr -> RETURN calc .)
+    NAME            reduce using rule 59 (returnexpr -> RETURN calc .)
+    $end            reduce using rule 59 (returnexpr -> RETURN calc .)
+    UNTIL           reduce using rule 59 (returnexpr -> RETURN calc .)
+    ENDIF           reduce using rule 59 (returnexpr -> RETURN calc .)
+    ELSE            reduce using rule 59 (returnexpr -> RETURN calc .)
+    ENDFOR          reduce using rule 59 (returnexpr -> RETURN calc .)
+    ENDPROC         reduce using rule 59 (returnexpr -> RETURN calc .)
+    PLUS            shift and go to state 65
+    MINUS           shift and go to state 66
+    TIMES           shift and go to state 67
+    DIVIDE          shift and go to state 68
+    INTDIVIDE       shift and go to state 69
+    MOD             shift and go to state 70
+    POWER           shift and go to state 71
+
+    op                             shift and go to state 64
+
+state 36
+
+    (9) calc -> LPARENROUND . calc RPARENROUND
+    (9) calc -> . LPARENROUND calc RPARENROUND
+    (10) calc -> . calc op calc
+    (11) calc -> . term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    LPARENROUND     shift and go to state 36
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+    calc                           shift and go to state 72
+    term                           shift and go to state 37
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 37
+
+    (11) calc -> term .
+
+    PLUS            reduce using rule 11 (calc -> term .)
+    MINUS           reduce using rule 11 (calc -> term .)
+    TIMES           reduce using rule 11 (calc -> term .)
+    DIVIDE          reduce using rule 11 (calc -> term .)
+    INTDIVIDE       reduce using rule 11 (calc -> term .)
+    MOD             reduce using rule 11 (calc -> term .)
+    POWER           reduce using rule 11 (calc -> term .)
+    IF              reduce using rule 11 (calc -> term .)
+    REPEAT          reduce using rule 11 (calc -> term .)
+    FOR             reduce using rule 11 (calc -> term .)
+    PROCEDURE       reduce using rule 11 (calc -> term .)
+    RETURN          reduce using rule 11 (calc -> term .)
+    NAME            reduce using rule 11 (calc -> term .)
+    $end            reduce using rule 11 (calc -> term .)
+    UNTIL           reduce using rule 11 (calc -> term .)
+    ENDIF           reduce using rule 11 (calc -> term .)
+    ELSE            reduce using rule 11 (calc -> term .)
+    ENDFOR          reduce using rule 11 (calc -> term .)
+    ENDPROC         reduce using rule 11 (calc -> term .)
+    RPARENROUND     reduce using rule 11 (calc -> term .)
+    COMMA           reduce using rule 11 (calc -> term .)
+
+
+state 38
+
+    (8) calcexpr -> var ASSIGN calc .
+    (10) calc -> calc . op calc
+    (12) op -> . PLUS
+    (13) op -> . MINUS
+    (14) op -> . TIMES
+    (15) op -> . DIVIDE
+    (16) op -> . INTDIVIDE
+    (17) op -> . MOD
+    (18) op -> . POWER
+
+    IF              reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    REPEAT          reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    FOR             reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    PROCEDURE       reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    RETURN          reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    NAME            reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    $end            reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    UNTIL           reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    ENDIF           reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    ELSE            reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    ENDFOR          reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    ENDPROC         reduce using rule 8 (calcexpr -> var ASSIGN calc .)
+    PLUS            shift and go to state 65
+    MINUS           shift and go to state 66
+    TIMES           shift and go to state 67
+    DIVIDE          shift and go to state 68
+    INTDIVIDE       shift and go to state 69
+    MOD             shift and go to state 70
+    POWER           shift and go to state 71
+
+    op                             shift and go to state 64
+
+state 39
+
+    (35) condexpr -> IF cond THEN . code ENDIF
+    (36) condexpr -> IF cond THEN . code ELSE code ENDIF
+    (1) code -> . expr
+    (2) code -> . expr code
+    (3) expr -> . calcexpr
+    (4) expr -> . condexpr
+    (5) expr -> . loopexpr
+    (6) expr -> . funcexpr
+    (7) expr -> . returnexpr
+    (8) calcexpr -> . var ASSIGN calc
+    (35) condexpr -> . IF cond THEN code ENDIF
+    (36) condexpr -> . IF cond THEN code ELSE code ENDIF
+    (52) loopexpr -> . REPEAT code UNTIL cond
+    (53) loopexpr -> . FOR condfor DO code ENDFOR
+    (57) funcexpr -> . PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC
+    (58) returnexpr -> . RETURN
+    (59) returnexpr -> . RETURN calc
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    IF              shift and go to state 9
+    REPEAT          shift and go to state 10
+    FOR             shift and go to state 11
+    PROCEDURE       shift and go to state 12
+    RETURN          shift and go to state 14
+    NAME            shift and go to state 13
+
+    code                           shift and go to state 73
+    expr                           shift and go to state 2
+    calcexpr                       shift and go to state 3
+    condexpr                       shift and go to state 4
+    loopexpr                       shift and go to state 5
+    funcexpr                       shift and go to state 6
+    returnexpr                     shift and go to state 7
+    var                            shift and go to state 8
+
+state 40
+
+    (40) cond -> cond log . cond
+    (37) cond -> . LPARENROUND cond RPARENROUND
+    (38) cond -> . NOT cond
+    (39) cond -> . term
+    (40) cond -> . cond log cond
+    (41) cond -> . term comp term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    LPARENROUND     shift and go to state 18
+    NOT             shift and go to state 19
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+    cond                           shift and go to state 74
+    term                           shift and go to state 20
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 41
+
+    (42) log -> AND .
+
+    LPARENROUND     reduce using rule 42 (log -> AND .)
+    NOT             reduce using rule 42 (log -> AND .)
+    NUMBER          reduce using rule 42 (log -> AND .)
+    LBRACE          reduce using rule 42 (log -> AND .)
+    LPARENANG       reduce using rule 42 (log -> AND .)
+    NAME            reduce using rule 42 (log -> AND .)
+
+
+state 42
+
+    (43) log -> OR .
+
+    LPARENROUND     reduce using rule 43 (log -> OR .)
+    NOT             reduce using rule 43 (log -> OR .)
+    NUMBER          reduce using rule 43 (log -> OR .)
+    LBRACE          reduce using rule 43 (log -> OR .)
+    LPARENANG       reduce using rule 43 (log -> OR .)
+    NAME            reduce using rule 43 (log -> OR .)
+
+
+state 43
+
+    (37) cond -> LPARENROUND cond . RPARENROUND
+    (40) cond -> cond . log cond
+    (42) log -> . AND
+    (43) log -> . OR
+
+    RPARENROUND     shift and go to state 75
+    AND             shift and go to state 41
+    OR              shift and go to state 42
+
+    log                            shift and go to state 40
+
+state 44
+
+    (38) cond -> NOT cond .
+    (40) cond -> cond . log cond
+    (42) log -> . AND
+    (43) log -> . OR
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 38 (cond -> NOT cond .)
+    RPARENROUND     reduce using rule 38 (cond -> NOT cond .)
+    IF              reduce using rule 38 (cond -> NOT cond .)
+    REPEAT          reduce using rule 38 (cond -> NOT cond .)
+    FOR             reduce using rule 38 (cond -> NOT cond .)
+    PROCEDURE       reduce using rule 38 (cond -> NOT cond .)
+    RETURN          reduce using rule 38 (cond -> NOT cond .)
+    NAME            reduce using rule 38 (cond -> NOT cond .)
+    $end            reduce using rule 38 (cond -> NOT cond .)
+    UNTIL           reduce using rule 38 (cond -> NOT cond .)
+    ENDIF           reduce using rule 38 (cond -> NOT cond .)
+    ELSE            reduce using rule 38 (cond -> NOT cond .)
+    ENDFOR          reduce using rule 38 (cond -> NOT cond .)
+    ENDPROC         reduce using rule 38 (cond -> NOT cond .)
+    AND             shift and go to state 41
+    OR              shift and go to state 42
+
+  ! AND             [ reduce using rule 38 (cond -> NOT cond .) ]
+  ! OR              [ reduce using rule 38 (cond -> NOT cond .) ]
+
+    log                            shift and go to state 40
+
+state 45
+
+    (41) cond -> term comp . term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+    term                           shift and go to state 76
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 46
+
+    (44) comp -> EQ .
+
+    NUMBER          reduce using rule 44 (comp -> EQ .)
+    LBRACE          reduce using rule 44 (comp -> EQ .)
+    LPARENANG       reduce using rule 44 (comp -> EQ .)
+    NAME            reduce using rule 44 (comp -> EQ .)
+
+
+state 47
+
+    (45) comp -> NOTEQ .
+
+    NUMBER          reduce using rule 45 (comp -> NOTEQ .)
+    LBRACE          reduce using rule 45 (comp -> NOTEQ .)
+    LPARENANG       reduce using rule 45 (comp -> NOTEQ .)
+    NAME            reduce using rule 45 (comp -> NOTEQ .)
+
+
+state 48
+
+    (46) comp -> GT .
+
+    NUMBER          reduce using rule 46 (comp -> GT .)
+    LBRACE          reduce using rule 46 (comp -> GT .)
+    LPARENANG       reduce using rule 46 (comp -> GT .)
+    NAME            reduce using rule 46 (comp -> GT .)
+
+
+state 49
+
+    (47) comp -> GE .
+
+    NUMBER          reduce using rule 47 (comp -> GE .)
+    LBRACE          reduce using rule 47 (comp -> GE .)
+    LPARENANG       reduce using rule 47 (comp -> GE .)
+    NAME            reduce using rule 47 (comp -> GE .)
+
+
+state 50
+
+    (48) comp -> LT .
+
+    NUMBER          reduce using rule 48 (comp -> LT .)
+    LBRACE          reduce using rule 48 (comp -> LT .)
+    LPARENANG       reduce using rule 48 (comp -> LT .)
+    NAME            reduce using rule 48 (comp -> LT .)
+
+
+state 51
+
+    (49) comp -> LE .
+
+    NUMBER          reduce using rule 49 (comp -> LE .)
+    LBRACE          reduce using rule 49 (comp -> LE .)
+    LPARENANG       reduce using rule 49 (comp -> LE .)
+    NAME            reduce using rule 49 (comp -> LE .)
+
+
+state 52
+
+    (50) comp -> IN .
+
+    NUMBER          reduce using rule 50 (comp -> IN .)
+    LBRACE          reduce using rule 50 (comp -> IN .)
+    LPARENANG       reduce using rule 50 (comp -> IN .)
+    NAME            reduce using rule 50 (comp -> IN .)
+
+
+state 53
+
+    (51) comp -> NOT . IN
+
+    IN              shift and go to state 77
+
+
+state 54
+
+    (31) set -> LBRACE value . RBRACE
+
+    RBRACE          shift and go to state 78
+
+
+state 55
+
+    (33) value -> scalar . COMMA value
+    (34) value -> scalar .
+
+    COMMA           shift and go to state 79
+    RBRACE          reduce using rule 34 (value -> scalar .)
+    RPARENANG       reduce using rule 34 (value -> scalar .)
+
+
+state 56
+
+    (32) seq -> LPARENANG value . RPARENANG
+
+    RPARENANG       shift and go to state 80
+
+
+state 57
+
+    (28) funccall -> NAME LPARENROUND . callparams RPARENROUND
+    (29) callparams -> . calc
+    (30) callparams -> . calc COMMA callparams
+    (9) calc -> . LPARENROUND calc RPARENROUND
+    (10) calc -> . calc op calc
+    (11) calc -> . term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    LPARENROUND     shift and go to state 36
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+    callparams                     shift and go to state 81
+    calc                           shift and go to state 82
+    term                           shift and go to state 37
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 58
+
+    (52) loopexpr -> REPEAT code UNTIL . cond
+    (37) cond -> . LPARENROUND cond RPARENROUND
+    (38) cond -> . NOT cond
+    (39) cond -> . term
+    (40) cond -> . cond log cond
+    (41) cond -> . term comp term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    LPARENROUND     shift and go to state 18
+    NOT             shift and go to state 19
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+    cond                           shift and go to state 83
+    term                           shift and go to state 20
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 59
+
+    (53) loopexpr -> FOR condfor DO . code ENDFOR
+    (1) code -> . expr
+    (2) code -> . expr code
+    (3) expr -> . calcexpr
+    (4) expr -> . condexpr
+    (5) expr -> . loopexpr
+    (6) expr -> . funcexpr
+    (7) expr -> . returnexpr
+    (8) calcexpr -> . var ASSIGN calc
+    (35) condexpr -> . IF cond THEN code ENDIF
+    (36) condexpr -> . IF cond THEN code ELSE code ENDIF
+    (52) loopexpr -> . REPEAT code UNTIL cond
+    (53) loopexpr -> . FOR condfor DO code ENDFOR
+    (57) funcexpr -> . PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC
+    (58) returnexpr -> . RETURN
+    (59) returnexpr -> . RETURN calc
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    IF              shift and go to state 9
+    REPEAT          shift and go to state 10
+    FOR             shift and go to state 11
+    PROCEDURE       shift and go to state 12
+    RETURN          shift and go to state 14
+    NAME            shift and go to state 13
+
+    code                           shift and go to state 84
+    expr                           shift and go to state 2
+    calcexpr                       shift and go to state 3
+    condexpr                       shift and go to state 4
+    loopexpr                       shift and go to state 5
+    funcexpr                       shift and go to state 6
+    returnexpr                     shift and go to state 7
+    var                            shift and go to state 8
+
+state 60
+
+    (54) condfor -> NAME IN . set
+    (55) condfor -> NAME IN . NAME
+    (56) condfor -> NAME IN . scalar TO scalar BY scalar
+    (31) set -> . LBRACE value RBRACE
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    NAME            shift and go to state 85
+    LBRACE          shift and go to state 27
+    NUMBER          shift and go to state 24
+
+    set                            shift and go to state 86
+    scalar                         shift and go to state 87
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 61
+
+    (57) funcexpr -> PROCEDURE NAME LPARENROUND . params RPARENROUND code ENDPROC
+    (60) params -> . NAME COMMA params
+    (61) params -> . NAME
+
+    NAME            shift and go to state 88
+
+    params                         shift and go to state 89
+
+state 62
+
+    (21) var -> NAME LPARENANG NAME . RPARENANG
+
+    RPARENANG       shift and go to state 90
+
+
+state 63
+
+    (20) var -> NAME LPARENANG NUMBER . RPARENANG
+
+    RPARENANG       shift and go to state 91
+
+
+state 64
+
+    (10) calc -> calc op . calc
+    (9) calc -> . LPARENROUND calc RPARENROUND
+    (10) calc -> . calc op calc
+    (11) calc -> . term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    LPARENROUND     shift and go to state 36
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+    calc                           shift and go to state 92
+    term                           shift and go to state 37
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 65
+
+    (12) op -> PLUS .
+
+    LPARENROUND     reduce using rule 12 (op -> PLUS .)
+    NUMBER          reduce using rule 12 (op -> PLUS .)
+    LBRACE          reduce using rule 12 (op -> PLUS .)
+    LPARENANG       reduce using rule 12 (op -> PLUS .)
+    NAME            reduce using rule 12 (op -> PLUS .)
+
+
+state 66
+
+    (13) op -> MINUS .
+
+    LPARENROUND     reduce using rule 13 (op -> MINUS .)
+    NUMBER          reduce using rule 13 (op -> MINUS .)
+    LBRACE          reduce using rule 13 (op -> MINUS .)
+    LPARENANG       reduce using rule 13 (op -> MINUS .)
+    NAME            reduce using rule 13 (op -> MINUS .)
+
+
+state 67
+
+    (14) op -> TIMES .
+
+    LPARENROUND     reduce using rule 14 (op -> TIMES .)
+    NUMBER          reduce using rule 14 (op -> TIMES .)
+    LBRACE          reduce using rule 14 (op -> TIMES .)
+    LPARENANG       reduce using rule 14 (op -> TIMES .)
+    NAME            reduce using rule 14 (op -> TIMES .)
+
+
+state 68
+
+    (15) op -> DIVIDE .
+
+    LPARENROUND     reduce using rule 15 (op -> DIVIDE .)
+    NUMBER          reduce using rule 15 (op -> DIVIDE .)
+    LBRACE          reduce using rule 15 (op -> DIVIDE .)
+    LPARENANG       reduce using rule 15 (op -> DIVIDE .)
+    NAME            reduce using rule 15 (op -> DIVIDE .)
+
+
+state 69
+
+    (16) op -> INTDIVIDE .
+
+    LPARENROUND     reduce using rule 16 (op -> INTDIVIDE .)
+    NUMBER          reduce using rule 16 (op -> INTDIVIDE .)
+    LBRACE          reduce using rule 16 (op -> INTDIVIDE .)
+    LPARENANG       reduce using rule 16 (op -> INTDIVIDE .)
+    NAME            reduce using rule 16 (op -> INTDIVIDE .)
+
+
+state 70
+
+    (17) op -> MOD .
+
+    LPARENROUND     reduce using rule 17 (op -> MOD .)
+    NUMBER          reduce using rule 17 (op -> MOD .)
+    LBRACE          reduce using rule 17 (op -> MOD .)
+    LPARENANG       reduce using rule 17 (op -> MOD .)
+    NAME            reduce using rule 17 (op -> MOD .)
+
+
+state 71
+
+    (18) op -> POWER .
+
+    LPARENROUND     reduce using rule 18 (op -> POWER .)
+    NUMBER          reduce using rule 18 (op -> POWER .)
+    LBRACE          reduce using rule 18 (op -> POWER .)
+    LPARENANG       reduce using rule 18 (op -> POWER .)
+    NAME            reduce using rule 18 (op -> POWER .)
+
+
+state 72
+
+    (9) calc -> LPARENROUND calc . RPARENROUND
+    (10) calc -> calc . op calc
+    (12) op -> . PLUS
+    (13) op -> . MINUS
+    (14) op -> . TIMES
+    (15) op -> . DIVIDE
+    (16) op -> . INTDIVIDE
+    (17) op -> . MOD
+    (18) op -> . POWER
+
+    RPARENROUND     shift and go to state 93
+    PLUS            shift and go to state 65
+    MINUS           shift and go to state 66
+    TIMES           shift and go to state 67
+    DIVIDE          shift and go to state 68
+    INTDIVIDE       shift and go to state 69
+    MOD             shift and go to state 70
+    POWER           shift and go to state 71
+
+    op                             shift and go to state 64
+
+state 73
+
+    (35) condexpr -> IF cond THEN code . ENDIF
+    (36) condexpr -> IF cond THEN code . ELSE code ENDIF
+
+    ENDIF           shift and go to state 94
+    ELSE            shift and go to state 95
+
+
+state 74
+
+    (40) cond -> cond log cond .
+    (40) cond -> cond . log cond
+    (42) log -> . AND
+    (43) log -> . OR
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 40 (cond -> cond log cond .)
+    RPARENROUND     reduce using rule 40 (cond -> cond log cond .)
+    IF              reduce using rule 40 (cond -> cond log cond .)
+    REPEAT          reduce using rule 40 (cond -> cond log cond .)
+    FOR             reduce using rule 40 (cond -> cond log cond .)
+    PROCEDURE       reduce using rule 40 (cond -> cond log cond .)
+    RETURN          reduce using rule 40 (cond -> cond log cond .)
+    NAME            reduce using rule 40 (cond -> cond log cond .)
+    $end            reduce using rule 40 (cond -> cond log cond .)
+    UNTIL           reduce using rule 40 (cond -> cond log cond .)
+    ENDIF           reduce using rule 40 (cond -> cond log cond .)
+    ELSE            reduce using rule 40 (cond -> cond log cond .)
+    ENDFOR          reduce using rule 40 (cond -> cond log cond .)
+    ENDPROC         reduce using rule 40 (cond -> cond log cond .)
+    AND             shift and go to state 41
+    OR              shift and go to state 42
+
+  ! AND             [ reduce using rule 40 (cond -> cond log cond .) ]
+  ! OR              [ reduce using rule 40 (cond -> cond log cond .) ]
+
+    log                            shift and go to state 40
+
+state 75
+
+    (37) cond -> LPARENROUND cond RPARENROUND .
+
+    THEN            reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    AND             reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    OR              reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    RPARENROUND     reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    IF              reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    REPEAT          reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    FOR             reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    PROCEDURE       reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    RETURN          reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    NAME            reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    $end            reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    UNTIL           reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    ENDIF           reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    ELSE            reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    ENDFOR          reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+    ENDPROC         reduce using rule 37 (cond -> LPARENROUND cond RPARENROUND .)
+
+
+state 76
+
+    (41) cond -> term comp term .
+
+    THEN            reduce using rule 41 (cond -> term comp term .)
+    AND             reduce using rule 41 (cond -> term comp term .)
+    OR              reduce using rule 41 (cond -> term comp term .)
+    RPARENROUND     reduce using rule 41 (cond -> term comp term .)
+    IF              reduce using rule 41 (cond -> term comp term .)
+    REPEAT          reduce using rule 41 (cond -> term comp term .)
+    FOR             reduce using rule 41 (cond -> term comp term .)
+    PROCEDURE       reduce using rule 41 (cond -> term comp term .)
+    RETURN          reduce using rule 41 (cond -> term comp term .)
+    NAME            reduce using rule 41 (cond -> term comp term .)
+    $end            reduce using rule 41 (cond -> term comp term .)
+    UNTIL           reduce using rule 41 (cond -> term comp term .)
+    ENDIF           reduce using rule 41 (cond -> term comp term .)
+    ELSE            reduce using rule 41 (cond -> term comp term .)
+    ENDFOR          reduce using rule 41 (cond -> term comp term .)
+    ENDPROC         reduce using rule 41 (cond -> term comp term .)
+
+
+state 77
+
+    (51) comp -> NOT IN .
+
+    NUMBER          reduce using rule 51 (comp -> NOT IN .)
+    LBRACE          reduce using rule 51 (comp -> NOT IN .)
+    LPARENANG       reduce using rule 51 (comp -> NOT IN .)
+    NAME            reduce using rule 51 (comp -> NOT IN .)
+
+
+state 78
+
+    (31) set -> LBRACE value RBRACE .
+
+    EQ              reduce using rule 31 (set -> LBRACE value RBRACE .)
+    NOTEQ           reduce using rule 31 (set -> LBRACE value RBRACE .)
+    GT              reduce using rule 31 (set -> LBRACE value RBRACE .)
+    GE              reduce using rule 31 (set -> LBRACE value RBRACE .)
+    LT              reduce using rule 31 (set -> LBRACE value RBRACE .)
+    LE              reduce using rule 31 (set -> LBRACE value RBRACE .)
+    IN              reduce using rule 31 (set -> LBRACE value RBRACE .)
+    NOT             reduce using rule 31 (set -> LBRACE value RBRACE .)
+    THEN            reduce using rule 31 (set -> LBRACE value RBRACE .)
+    AND             reduce using rule 31 (set -> LBRACE value RBRACE .)
+    OR              reduce using rule 31 (set -> LBRACE value RBRACE .)
+    PLUS            reduce using rule 31 (set -> LBRACE value RBRACE .)
+    MINUS           reduce using rule 31 (set -> LBRACE value RBRACE .)
+    TIMES           reduce using rule 31 (set -> LBRACE value RBRACE .)
+    DIVIDE          reduce using rule 31 (set -> LBRACE value RBRACE .)
+    INTDIVIDE       reduce using rule 31 (set -> LBRACE value RBRACE .)
+    MOD             reduce using rule 31 (set -> LBRACE value RBRACE .)
+    POWER           reduce using rule 31 (set -> LBRACE value RBRACE .)
+    IF              reduce using rule 31 (set -> LBRACE value RBRACE .)
+    REPEAT          reduce using rule 31 (set -> LBRACE value RBRACE .)
+    FOR             reduce using rule 31 (set -> LBRACE value RBRACE .)
+    PROCEDURE       reduce using rule 31 (set -> LBRACE value RBRACE .)
+    RETURN          reduce using rule 31 (set -> LBRACE value RBRACE .)
+    NAME            reduce using rule 31 (set -> LBRACE value RBRACE .)
+    $end            reduce using rule 31 (set -> LBRACE value RBRACE .)
+    UNTIL           reduce using rule 31 (set -> LBRACE value RBRACE .)
+    ENDIF           reduce using rule 31 (set -> LBRACE value RBRACE .)
+    ELSE            reduce using rule 31 (set -> LBRACE value RBRACE .)
+    ENDFOR          reduce using rule 31 (set -> LBRACE value RBRACE .)
+    ENDPROC         reduce using rule 31 (set -> LBRACE value RBRACE .)
+    RPARENROUND     reduce using rule 31 (set -> LBRACE value RBRACE .)
+    COMMA           reduce using rule 31 (set -> LBRACE value RBRACE .)
+    DO              reduce using rule 31 (set -> LBRACE value RBRACE .)
+
+
+state 79
+
+    (33) value -> scalar COMMA . value
+    (33) value -> . scalar COMMA value
+    (34) value -> . scalar
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    NUMBER          shift and go to state 24
+    NAME            shift and go to state 29
+
+    scalar                         shift and go to state 55
+    value                          shift and go to state 96
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 80
+
+    (32) seq -> LPARENANG value RPARENANG .
+
+    EQ              reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    NOTEQ           reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    GT              reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    GE              reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    LT              reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    LE              reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    IN              reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    NOT             reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    THEN            reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    AND             reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    OR              reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    PLUS            reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    MINUS           reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    TIMES           reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    DIVIDE          reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    INTDIVIDE       reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    MOD             reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    POWER           reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    IF              reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    REPEAT          reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    FOR             reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    PROCEDURE       reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    RETURN          reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    NAME            reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    $end            reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    UNTIL           reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    ENDIF           reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    ELSE            reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    ENDFOR          reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    ENDPROC         reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    RPARENROUND     reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+    COMMA           reduce using rule 32 (seq -> LPARENANG value RPARENANG .)
+
+
+state 81
+
+    (28) funccall -> NAME LPARENROUND callparams . RPARENROUND
+
+    RPARENROUND     shift and go to state 97
+
+
+state 82
+
+    (29) callparams -> calc .
+    (30) callparams -> calc . COMMA callparams
+    (10) calc -> calc . op calc
+    (12) op -> . PLUS
+    (13) op -> . MINUS
+    (14) op -> . TIMES
+    (15) op -> . DIVIDE
+    (16) op -> . INTDIVIDE
+    (17) op -> . MOD
+    (18) op -> . POWER
+
+    RPARENROUND     reduce using rule 29 (callparams -> calc .)
+    COMMA           shift and go to state 98
+    PLUS            shift and go to state 65
+    MINUS           shift and go to state 66
+    TIMES           shift and go to state 67
+    DIVIDE          shift and go to state 68
+    INTDIVIDE       shift and go to state 69
+    MOD             shift and go to state 70
+    POWER           shift and go to state 71
+
+    op                             shift and go to state 64
+
+state 83
+
+    (52) loopexpr -> REPEAT code UNTIL cond .
+    (40) cond -> cond . log cond
+    (42) log -> . AND
+    (43) log -> . OR
+
+    IF              reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    REPEAT          reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    FOR             reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    PROCEDURE       reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    RETURN          reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    NAME            reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    $end            reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    UNTIL           reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    ENDIF           reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    ELSE            reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    ENDFOR          reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    ENDPROC         reduce using rule 52 (loopexpr -> REPEAT code UNTIL cond .)
+    AND             shift and go to state 41
+    OR              shift and go to state 42
+
+    log                            shift and go to state 40
+
+state 84
+
+    (53) loopexpr -> FOR condfor DO code . ENDFOR
+
+    ENDFOR          shift and go to state 99
+
+
+state 85
+
+    (55) condfor -> NAME IN NAME .
+    (28) funccall -> NAME . LPARENROUND callparams RPARENROUND
+    (19) var -> NAME .
+    (20) var -> NAME . LPARENANG NUMBER RPARENANG
+    (21) var -> NAME . LPARENANG NAME RPARENANG
+
+    DO              reduce using rule 55 (condfor -> NAME IN NAME .)
+    LPARENROUND     shift and go to state 57
+    TO              reduce using rule 19 (var -> NAME .)
+    LPARENANG       shift and go to state 34
+
+
+state 86
+
+    (54) condfor -> NAME IN set .
+
+    DO              reduce using rule 54 (condfor -> NAME IN set .)
+
+
+state 87
+
+    (56) condfor -> NAME IN scalar . TO scalar BY scalar
+
+    TO              shift and go to state 100
+
+
+state 88
+
+    (60) params -> NAME . COMMA params
+    (61) params -> NAME .
+
+    COMMA           shift and go to state 101
+    RPARENROUND     reduce using rule 61 (params -> NAME .)
+
+
+state 89
+
+    (57) funcexpr -> PROCEDURE NAME LPARENROUND params . RPARENROUND code ENDPROC
+
+    RPARENROUND     shift and go to state 102
+
+
+state 90
+
+    (21) var -> NAME LPARENANG NAME RPARENANG .
+
+    ASSIGN          reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    EQ              reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    NOTEQ           reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    GT              reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    GE              reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    LT              reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    LE              reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    IN              reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    NOT             reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    THEN            reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    AND             reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    OR              reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    PLUS            reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    MINUS           reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    TIMES           reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    DIVIDE          reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    INTDIVIDE       reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    MOD             reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    POWER           reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    IF              reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    REPEAT          reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    FOR             reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    PROCEDURE       reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    RETURN          reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    NAME            reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    $end            reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    UNTIL           reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    ENDIF           reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    ELSE            reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    ENDFOR          reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    ENDPROC         reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    RPARENROUND     reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    COMMA           reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    RBRACE          reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    RPARENANG       reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    TO              reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    BY              reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+    DO              reduce using rule 21 (var -> NAME LPARENANG NAME RPARENANG .)
+
+
+state 91
+
+    (20) var -> NAME LPARENANG NUMBER RPARENANG .
+
+    ASSIGN          reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    EQ              reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    NOTEQ           reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    GT              reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    GE              reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    LT              reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    LE              reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    IN              reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    NOT             reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    THEN            reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    AND             reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    OR              reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    PLUS            reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    MINUS           reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    TIMES           reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    DIVIDE          reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    INTDIVIDE       reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    MOD             reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    POWER           reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    IF              reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    REPEAT          reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    FOR             reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    PROCEDURE       reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    RETURN          reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    NAME            reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    $end            reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    UNTIL           reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    ENDIF           reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    ELSE            reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    ENDFOR          reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    ENDPROC         reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    RPARENROUND     reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    COMMA           reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    RBRACE          reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    RPARENANG       reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    TO              reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    BY              reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+    DO              reduce using rule 20 (var -> NAME LPARENANG NUMBER RPARENANG .)
+
+
+state 92
+
+    (10) calc -> calc op calc .
+    (10) calc -> calc . op calc
+    (12) op -> . PLUS
+    (13) op -> . MINUS
+    (14) op -> . TIMES
+    (15) op -> . DIVIDE
+    (16) op -> . INTDIVIDE
+    (17) op -> . MOD
+    (18) op -> . POWER
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for INTDIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for POWER resolved as shift
+    IF              reduce using rule 10 (calc -> calc op calc .)
+    REPEAT          reduce using rule 10 (calc -> calc op calc .)
+    FOR             reduce using rule 10 (calc -> calc op calc .)
+    PROCEDURE       reduce using rule 10 (calc -> calc op calc .)
+    RETURN          reduce using rule 10 (calc -> calc op calc .)
+    NAME            reduce using rule 10 (calc -> calc op calc .)
+    $end            reduce using rule 10 (calc -> calc op calc .)
+    UNTIL           reduce using rule 10 (calc -> calc op calc .)
+    ENDIF           reduce using rule 10 (calc -> calc op calc .)
+    ELSE            reduce using rule 10 (calc -> calc op calc .)
+    ENDFOR          reduce using rule 10 (calc -> calc op calc .)
+    ENDPROC         reduce using rule 10 (calc -> calc op calc .)
+    RPARENROUND     reduce using rule 10 (calc -> calc op calc .)
+    COMMA           reduce using rule 10 (calc -> calc op calc .)
+    PLUS            shift and go to state 65
+    MINUS           shift and go to state 66
+    TIMES           shift and go to state 67
+    DIVIDE          shift and go to state 68
+    INTDIVIDE       shift and go to state 69
+    MOD             shift and go to state 70
+    POWER           shift and go to state 71
+
+  ! PLUS            [ reduce using rule 10 (calc -> calc op calc .) ]
+  ! MINUS           [ reduce using rule 10 (calc -> calc op calc .) ]
+  ! TIMES           [ reduce using rule 10 (calc -> calc op calc .) ]
+  ! DIVIDE          [ reduce using rule 10 (calc -> calc op calc .) ]
+  ! INTDIVIDE       [ reduce using rule 10 (calc -> calc op calc .) ]
+  ! MOD             [ reduce using rule 10 (calc -> calc op calc .) ]
+  ! POWER           [ reduce using rule 10 (calc -> calc op calc .) ]
+
+    op                             shift and go to state 64
+
+state 93
+
+    (9) calc -> LPARENROUND calc RPARENROUND .
+
+    PLUS            reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    MINUS           reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    TIMES           reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    DIVIDE          reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    INTDIVIDE       reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    MOD             reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    POWER           reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    IF              reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    REPEAT          reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    FOR             reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    PROCEDURE       reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    RETURN          reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    NAME            reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    $end            reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    UNTIL           reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    ENDIF           reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    ELSE            reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    ENDFOR          reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    ENDPROC         reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    RPARENROUND     reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+    COMMA           reduce using rule 9 (calc -> LPARENROUND calc RPARENROUND .)
+
+
+state 94
+
+    (35) condexpr -> IF cond THEN code ENDIF .
+
+    IF              reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+    REPEAT          reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+    FOR             reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+    PROCEDURE       reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+    RETURN          reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+    NAME            reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+    $end            reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+    UNTIL           reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+    ENDIF           reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+    ELSE            reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+    ENDFOR          reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+    ENDPROC         reduce using rule 35 (condexpr -> IF cond THEN code ENDIF .)
+
+
+state 95
+
+    (36) condexpr -> IF cond THEN code ELSE . code ENDIF
+    (1) code -> . expr
+    (2) code -> . expr code
+    (3) expr -> . calcexpr
+    (4) expr -> . condexpr
+    (5) expr -> . loopexpr
+    (6) expr -> . funcexpr
+    (7) expr -> . returnexpr
+    (8) calcexpr -> . var ASSIGN calc
+    (35) condexpr -> . IF cond THEN code ENDIF
+    (36) condexpr -> . IF cond THEN code ELSE code ENDIF
+    (52) loopexpr -> . REPEAT code UNTIL cond
+    (53) loopexpr -> . FOR condfor DO code ENDFOR
+    (57) funcexpr -> . PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC
+    (58) returnexpr -> . RETURN
+    (59) returnexpr -> . RETURN calc
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    IF              shift and go to state 9
+    REPEAT          shift and go to state 10
+    FOR             shift and go to state 11
+    PROCEDURE       shift and go to state 12
+    RETURN          shift and go to state 14
+    NAME            shift and go to state 13
+
+    code                           shift and go to state 103
+    expr                           shift and go to state 2
+    calcexpr                       shift and go to state 3
+    condexpr                       shift and go to state 4
+    loopexpr                       shift and go to state 5
+    funcexpr                       shift and go to state 6
+    returnexpr                     shift and go to state 7
+    var                            shift and go to state 8
+
+state 96
+
+    (33) value -> scalar COMMA value .
+
+    RBRACE          reduce using rule 33 (value -> scalar COMMA value .)
+    RPARENANG       reduce using rule 33 (value -> scalar COMMA value .)
+
+
+state 97
+
+    (28) funccall -> NAME LPARENROUND callparams RPARENROUND .
+
+    EQ              reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    NOTEQ           reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    GT              reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    GE              reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    LT              reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    LE              reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    IN              reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    NOT             reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    THEN            reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    AND             reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    OR              reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    PLUS            reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    MINUS           reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    TIMES           reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    DIVIDE          reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    INTDIVIDE       reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    MOD             reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    POWER           reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    IF              reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    REPEAT          reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    FOR             reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    PROCEDURE       reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    RETURN          reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    NAME            reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    $end            reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    UNTIL           reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    ENDIF           reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    ELSE            reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    ENDFOR          reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    ENDPROC         reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    RPARENROUND     reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    COMMA           reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    RBRACE          reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    RPARENANG       reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    TO              reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    BY              reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+    DO              reduce using rule 28 (funccall -> NAME LPARENROUND callparams RPARENROUND .)
+
+
+state 98
+
+    (30) callparams -> calc COMMA . callparams
+    (29) callparams -> . calc
+    (30) callparams -> . calc COMMA callparams
+    (9) calc -> . LPARENROUND calc RPARENROUND
+    (10) calc -> . calc op calc
+    (11) calc -> . term
+    (22) term -> . scalar
+    (23) term -> . set
+    (24) term -> . seq
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (31) set -> . LBRACE value RBRACE
+    (32) seq -> . LPARENANG value RPARENANG
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    LPARENROUND     shift and go to state 36
+    NUMBER          shift and go to state 24
+    LBRACE          shift and go to state 27
+    LPARENANG       shift and go to state 28
+    NAME            shift and go to state 29
+
+    calc                           shift and go to state 82
+    callparams                     shift and go to state 104
+    term                           shift and go to state 37
+    scalar                         shift and go to state 21
+    set                            shift and go to state 22
+    seq                            shift and go to state 23
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 99
+
+    (53) loopexpr -> FOR condfor DO code ENDFOR .
+
+    IF              reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+    REPEAT          reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+    FOR             reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+    PROCEDURE       reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+    RETURN          reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+    NAME            reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+    $end            reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+    UNTIL           reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+    ENDIF           reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+    ELSE            reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+    ENDFOR          reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+    ENDPROC         reduce using rule 53 (loopexpr -> FOR condfor DO code ENDFOR .)
+
+
+state 100
+
+    (56) condfor -> NAME IN scalar TO . scalar BY scalar
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    NUMBER          shift and go to state 24
+    NAME            shift and go to state 29
+
+    scalar                         shift and go to state 105
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 101
+
+    (60) params -> NAME COMMA . params
+    (60) params -> . NAME COMMA params
+    (61) params -> . NAME
+
+    NAME            shift and go to state 88
+
+    params                         shift and go to state 106
+
+state 102
+
+    (57) funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND . code ENDPROC
+    (1) code -> . expr
+    (2) code -> . expr code
+    (3) expr -> . calcexpr
+    (4) expr -> . condexpr
+    (5) expr -> . loopexpr
+    (6) expr -> . funcexpr
+    (7) expr -> . returnexpr
+    (8) calcexpr -> . var ASSIGN calc
+    (35) condexpr -> . IF cond THEN code ENDIF
+    (36) condexpr -> . IF cond THEN code ELSE code ENDIF
+    (52) loopexpr -> . REPEAT code UNTIL cond
+    (53) loopexpr -> . FOR condfor DO code ENDFOR
+    (57) funcexpr -> . PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC
+    (58) returnexpr -> . RETURN
+    (59) returnexpr -> . RETURN calc
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    IF              shift and go to state 9
+    REPEAT          shift and go to state 10
+    FOR             shift and go to state 11
+    PROCEDURE       shift and go to state 12
+    RETURN          shift and go to state 14
+    NAME            shift and go to state 13
+
+    code                           shift and go to state 107
+    expr                           shift and go to state 2
+    calcexpr                       shift and go to state 3
+    condexpr                       shift and go to state 4
+    loopexpr                       shift and go to state 5
+    funcexpr                       shift and go to state 6
+    returnexpr                     shift and go to state 7
+    var                            shift and go to state 8
+
+state 103
+
+    (36) condexpr -> IF cond THEN code ELSE code . ENDIF
+
+    ENDIF           shift and go to state 108
+
+
+state 104
+
+    (30) callparams -> calc COMMA callparams .
+
+    RPARENROUND     reduce using rule 30 (callparams -> calc COMMA callparams .)
+
+
+state 105
+
+    (56) condfor -> NAME IN scalar TO scalar . BY scalar
+
+    BY              shift and go to state 109
+
+
+state 106
+
+    (60) params -> NAME COMMA params .
+
+    RPARENROUND     reduce using rule 60 (params -> NAME COMMA params .)
+
+
+state 107
+
+    (57) funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code . ENDPROC
+
+    ENDPROC         shift and go to state 110
+
+
+state 108
+
+    (36) condexpr -> IF cond THEN code ELSE code ENDIF .
+
+    IF              reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+    REPEAT          reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+    FOR             reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+    PROCEDURE       reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+    RETURN          reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+    NAME            reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+    $end            reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+    UNTIL           reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+    ENDIF           reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+    ELSE            reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+    ENDFOR          reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+    ENDPROC         reduce using rule 36 (condexpr -> IF cond THEN code ELSE code ENDIF .)
+
+
+state 109
+
+    (56) condfor -> NAME IN scalar TO scalar BY . scalar
+    (25) scalar -> . NUMBER
+    (26) scalar -> . funccall
+    (27) scalar -> . var
+    (28) funccall -> . NAME LPARENROUND callparams RPARENROUND
+    (19) var -> . NAME
+    (20) var -> . NAME LPARENANG NUMBER RPARENANG
+    (21) var -> . NAME LPARENANG NAME RPARENANG
+
+    NUMBER          shift and go to state 24
+    NAME            shift and go to state 29
+
+    scalar                         shift and go to state 111
+    funccall                       shift and go to state 25
+    var                            shift and go to state 26
+
+state 110
+
+    (57) funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .
+
+    IF              reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+    REPEAT          reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+    FOR             reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+    PROCEDURE       reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+    RETURN          reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+    NAME            reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+    $end            reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+    UNTIL           reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+    ENDIF           reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+    ELSE            reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+    ENDFOR          reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+    ENDPROC         reduce using rule 57 (funcexpr -> PROCEDURE NAME LPARENROUND params RPARENROUND code ENDPROC .)
+
+
+state 111
+
+    (56) condfor -> NAME IN scalar TO scalar BY scalar .
+
+    DO              reduce using rule 56 (condfor -> NAME IN scalar TO scalar BY scalar .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for NAME in state 14 resolved as shift
+WARNING: shift/reduce conflict for AND in state 44 resolved as shift
+WARNING: shift/reduce conflict for OR in state 44 resolved as shift
+WARNING: shift/reduce conflict for AND in state 74 resolved as shift
+WARNING: shift/reduce conflict for OR in state 74 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 92 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 92 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 92 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 92 resolved as shift
+WARNING: shift/reduce conflict for INTDIVIDE in state 92 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 92 resolved as shift
+WARNING: shift/reduce conflict for POWER in state 92 resolved as shift

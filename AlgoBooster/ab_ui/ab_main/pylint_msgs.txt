@@ -1,0 +1,62 @@
+:syntax-error (E0001):
+  Used when a syntax error is raised for a module.
+:function-redefined (E0102): *%s already defined line %s*
+  Used when a function / class / method is redefined.
+:duplicate-argument-name (E0108): *Duplicate argument name %s in function definition*
+  Duplicate argument names in function definitions are syntax errors.
+:non-iterator-returned (E0301): *__iter__ returns non-iterator*
+  Used when an __iter__ method returns something which is not an iterable (i.e.
+  has no `__next__` method)
+:used-before-assignment (E0601): *Using variable %r before assignment*
+  Used when a local variable is accessed before it's assignment.
+:undefined-variable (E0602): *Undefined variable %r*
+  Used when an undefined variable is accessed.
+:undefined-all-variable (E0603): *Undefined variable name %r in __all__*
+  Used when an undefined variable name is referenced in __all__.
+:invalid-all-object (E0604): *Invalid object %r in __all__, must contain only strings*
+  Used when an invalid (non-string) object occurs in __all__.
+:no-name-in-module (E0611): *No name %r in module %r*
+  Used when a name cannot be found in a module.
+:assignment-from-no-return (E1111): *Assigning to function call which doesn't return*
+  Used when an assignment is done on a function call but the inferred function
+  doesn't return anything.
+:no-value-for-parameter (E1120): *No value for argument %s in %s call*
+  Used when a function call passes too few arguments.
+:too-many-function-args (E1121): *Too many positional arguments for %s call*
+  Used when a function call passes too many positional arguments.
+:invalid-sequence-index (E1126): *Sequence index is not an int, slice, or instance with __index__*
+  Used when a sequence type is indexed with an invalid type. Valid types are
+  ints, slices, and objects with an __index__ method.
+:assignment-from-none (E1128): *Assigning to function call which only returns None*
+  Used when an assignment is done on a function call but the inferred function
+  returns nothing but None.
+:fatal (F0001):
+  Used when an error occurred preventing the analysis of a module (unable to
+  find it for instance).
+:parse-error (F0010): *error while code parsing: %s*
+  Used when an exception occurred while building the Astroid representation
+  which could be handled by astroid.
+:literal-comparison (R0123): *Comparison to literal*
+  Used when comparing an object to a literal, which is usually what you do not
+  want to do, since you can compare to a different literal than what was
+  expected altogether.
+:no-else-return (R1705): *Unnecessary "else" after "return"*
+  Used in order to highlight an unnecessary block of code following an if
+  containing a return statement. As such, it will warn when it encounters an
+  else following a chain of ifs, all of them containing a return statement.
+:unreachable (W0101): *Unreachable code*
+  Used when there is some code behind a "return" or "raise" statement, which
+  will never be accessed.
+:exec-used (W0122): *Use of exec*
+  Used when you use the "exec" statement (function for Python 3), to discourage
+  its usage. That doesn't mean you cannot use it !
+:using-constant-test (W0125): *Using a conditional statement with a constant value*
+  Emitted when a conditional statement (If or ternary if) uses a constant value
+  for its test. This might not be what the user intended to do.
+:unused-variable (W0612): *Unused variable %r*
+  Used when a variable is defined but not used.
+:unused-argument (W0613): *Unused argument %r*
+  Used when a function or method argument is not used.
+:undefined-loop-variable (W0631): *Using possibly undefined loop variable %r*
+  Used when an loop variable (i.e. defined by a for loop or a list comprehension
+  or a generator expression) is used outside the loop.

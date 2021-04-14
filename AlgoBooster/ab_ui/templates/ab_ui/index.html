@@ -1,0 +1,32 @@
+{% extends 'ab_ui/base.html' %}
+{% block body_block %}
+{% load static %} 
+
+<div class="row">
+		<div class="col">
+			<br /><br />
+			<h1>AlgoBooster</h1>
+			<h2>Optimize Your Algorithms</h2>
+			<br /><br />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<figure>
+				<center>
+					<img src="{% static 'ab_ui/img/placeholder.jpg' %}" id="teaser-img">
+				</center>
+			</figure>
+		</div>
+	</div>
+	<div class="row">
+			<div class="col">
+				<br /><br />
+				<h5>Get to the Application <a href="{% url 'ab_ui:algobooster' %}">right away</a>
+					and test your very own algorithm.</h5>
+				<br /><br />
+			</div>
+		</div>
+
+
+{% endblock %}

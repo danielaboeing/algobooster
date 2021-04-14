@@ -1,0 +1,210 @@
+{% extends 'ab_ui/base.html' %}
+{% block body_block %}
+{% load static %} 
+
+<div class="row">
+	<div class="col">
+		<br />
+		<h3>Use AlgoBooster</h3>
+		<br />
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<!-- choose tip category -->
+		<b>Tools</b><br />
+		<div class="tools btn-group" role="group">
+			<button type="button" class="btn" id="var">Variables</button>
+			<button type="button" class="btn" id="cond">Conditions</button>
+			<button type="button" class="btn" id="loop">Loops</button>
+			<button type="button" class="btn" id="func">Functions</button>	
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-3 col-12">
+		<!-- Tips for using the pseudo code language -->
+		<div class="components box">
+			<div id="comp-content">
+				<div id="var-content">
+					<b>Variables</b><br />
+
+					You can do assignments like the following: <br />
+					<code>
+						a <- 3<br />
+						b <- {1, 2, 3}<br />
+						c <- [1, 2, 3]<br />
+						d <- a<br />
+						e <- b[1]<br />
+						c[0] <- d<br />
+					</code>
+					<br />
+
+					Additionally, you can do basic calculations: <br />
+					<code>
+						a <- 3 + 2<br />
+						b <- 2 % 3<br />
+						c <- 2 / 3<br />
+						d <- 2 // 3<br />
+						e <- 2 * 3<br />
+						f <- 2^3<br />
+					</code><br />
+					
+					Of course, you can also use variable names or lists / sets
+					with indices instead of numbers in the calculations.
+				</div>
+				<div id="cond-content">
+					<b>Conditions</b><br />
+					You can either use:<br />
+					<code>
+						if <i>cond</i> then <i>code</i> endif
+					</code>
+					<br />
+					or: 
+					<br />
+					<code>
+						if <i>cond</i> then <i>code</i> else <i>code</i> endif
+					</code>
+					<br />
+					with a condition like
+					<br />
+					<code>
+						not(<i>term</i>)<br />
+						<i>term</i><br />
+						<i>term</i> == <i>term</i><br />
+						<i>term</i> != <i>term</i><br />
+						<i>term</i> > <i>term</i><br />
+						<i>term</i> >= <i>term</i><br />
+						<i>term</i> < <i>term</i><br />
+						<i>term</i> <= <i>term</i><br />
+						<i>term</i> in <i>term</i><br />
+						<i>term</i> not in <i>term</i><br />
+					</code>
+
+					where <code><i>term</i></code> can be a variable, set, sequence, element
+					of a set or sequence, number or function call.<br /><br />
+
+					Additionally, you can logically link two or more conditions 
+					like the following: 
+					<br />
+					<code>
+						<i>cond</i> and <i>cond</i><br />
+						<i>cond</i> or <i>cond</i><br />
+					</code>
+
+				</div>
+				<div id="loop-content">
+					<b>Loops</b><br />
+
+					Currently, there are two possible loops.<br /><br />
+
+					The first one is a <code>repeat-until</code> loop:<br />
+					<code>
+						repeat <i>code</i> until <i>condition</i>
+					</code>
+					<br />
+
+					where <code><i>condition</i></code> is built as shown in the 
+					section "Conditions".<br /><br />
+
+					The second one is a <code>for</code> loop: <br />
+					<code>
+						for <i>for-condition</i> do <i>code</i> endfor
+					</code>
+					<br />
+
+					where <code><i>for-condition</i></code> can look like the following:<br />
+					<code>
+						<i>name</i> in <i>value</i> to <i>value</i> by <i>value</i><br />
+						<i>name</i> in <i>set or sequence</i><br />
+						<i>name</i> in <i>name</i><br />
+						<i>name</i> in <i>scalar</i> to <i>scalar</i> by <i>scalar</i><br />
+					</code>
+					Here, <code><i>scalar</i></code> can be a number, a variable name, a function
+					call or an element of a list or sequence.
+				</div>
+				<div id="func-content">
+					<b>Procedure</b><br />
+
+					The basic template of a procedure (function) looks like the following: <br />
+					<code>
+						procedure <i>name</i> ( <i>params</i> )<br />
+							<i>code</i><br />
+						endproc<br />
+					</code>
+					In this, <code><i>params</i></code> look like this: <br />
+					<code>
+						<i>name</i></code> or: <br /><code>
+						<i>name</i>, <i>name</i>, ...
+					</code>
+					<br /><br />
+
+					In a function, you can use a return statement: <br />
+					<code>
+						return</code> or: <br /><code>
+						return <i>expression</i>
+					</code><br />
+					with <code><i>expression</i></code> containing only a variable 
+					or value or a calculation.
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-9 col-12">
+		<div class="algorithm box">
+			<b>Algorithm</b>
+			<!-- Classification Algo input -->
+			<form action="{% url 'ab_ui:submit' %}" method="post">
+				{% csrf_token %} <!-- used against Cross Site Request Forgeries -->
+	
+				<textarea id="build-frame" name="code">{% if input %}{{input}}{% endif %}</textarea>
+				
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="submitType" id="parse_only" value="parse_only" checked>
+					<label class="form-check-label" for="parse_only">Parse</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="submitType" id="parse_and_class" value="parse_and_class">
+					<label class="form-check-label" for="parse_and_class">Parse And Classify</label>
+				</div>
+				
+				<div class="btn-group alg-btns" role="group">
+					<button type="button" class="btn" id="resetBtn">Reset</button>
+					<button type="submit" class="btn">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6 col-12">
+		<div class="algorithm-out box">
+			<!-- Output parsed Algorithm -->
+			<b>Parsed Algorithm</b>
+			<div class="result">
+				{% autoescape off %}{{ code }}{% endautoescape %}
+			</div>
+			<div class="complexity" id="complexity">
+				Runtime Complexity: {% if complexity %} {{complexity}} {% else %} <i>Not calculated yet.</i> {% endif %}
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-12">
+		<div class="classific box">
+			<!-- Classification and hints parsed Algorithm -->
+			<b>How to optimize your Algorithm</b>
+			{% if classification %}
+			<div class="result" id="help">
+				You can optimize your algorithm using <b id="classify">{{ classification }}</b> (probability: {{ probability }}).<br /><br />
+
+				Hints on how to optimize your algorithm:<br />
+				{% autoescape off %}{{ tips }}{% endautoescape %}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
